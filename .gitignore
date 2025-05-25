@@ -1,0 +1,4 @@
+# editor specific files
+*.user
+.vscode/
+.idea/
