@@ -1,0 +1,41 @@
+:root {
+    --primary-color: #06defd;
+    --secondary-color: #adb5bd;
+    --success-color: #20c997;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    
+    --container-bg-color: #e0e0e5;
+    --text-color: #212529;
+    --border-color: #adb5bd;
+    --shadow-color: rgba(125,125,130,0.8);
+
+    --dark-color: #343a40;
+    
+
+    --text-fs-0: 0.875rem;
+    --text-fs-1: 1rem;
+    --text-fs-2: 1.25rem;
+    --text-fs-3: 1.5rem;
+    --text-fs-4: 1.75rem;
+    --text-fs-5: 2rem;
+
+    --title-fs-0: 1.5rem;
+    --title-fs-1: 2rem;
+    --title-fs-2: 2.5rem;
+    --title-fs-3: 3rem;
+    --title-fs-4: 3.5rem;
+    --title-fs-5: 4rem;
+
+    --mp-1: 0.25rem;
+    --mp-2: 0.5rem;
+    --mp-3: 1rem;
+    --mp-4: 1.5rem;
+    --mp-5: 2rem;
+    --mp-6: 3rem;
+    --mp-7: 4rem;
+    --mp-8: 5rem;
+    --mp-9: 6rem;
+    --mp-10: 7rem;
+}
