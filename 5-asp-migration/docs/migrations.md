@@ -21,3 +21,13 @@ add like this :
 # create your DbContext file
 create file in this path -> /Infrastructure/Data/AppDbContext.cs
 u can check this file in this project for how to write ? 
+
+
+# update database
+
+* change your model file 
+* run this:
+```bash
+dotnet ef migrations add <ChangedTable>
+dotnet ef database update
+```

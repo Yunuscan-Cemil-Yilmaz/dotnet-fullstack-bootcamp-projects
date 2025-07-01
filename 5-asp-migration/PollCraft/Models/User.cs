@@ -32,6 +32,8 @@ public class User : ITimestampEntity
     [Required]
     [StringLength(255)]
     public string? Password { get; set; }
+    [Required]
+    public bool IsAdmin { get; set; } = false; // Default value for IsAdmin
     [StringLength(500)]
     [Url]
     public string? ProfilePicture { get; set; } = "http://localhost:5182/uploads/pp/default.webp"; // Default value
