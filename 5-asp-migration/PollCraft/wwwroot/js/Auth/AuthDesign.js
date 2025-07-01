@@ -45,6 +45,7 @@ $(document).ready(function() {
         e.preventDefault();
         
         const form = $(this);
+        const formId = form.attr('id');
         const submitBtn = form.find('.submit-btn');
         const btnText = submitBtn.find('.btn-text');
         const btnLoader = submitBtn.find('.btn-loader');
@@ -69,8 +70,9 @@ $(document).ready(function() {
                 btnLoader.hide();
                 
                 // Simulate response (replace with actual response handling)
-                simulateResponse(form);
-            }, 2000);
+                if (formId === "registerFrom") sendRegisterForm();
+                else if (formId === "loginFrom") sendLoginForm();
+            }, 100);
         }
     });
 

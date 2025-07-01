@@ -29,7 +29,8 @@
 
         <!-- Login Form -->
         <div class="form-container active" id="loginForm">
-            <form method="post" action="@Url.Action("Login", "Account")" class="auth-form">
+            <form method="post" 
+            id="loginFormForm" class="auth-form">
                 @Html.AntiForgeryToken()
                 
                 <div class="form-group">
@@ -73,7 +74,8 @@
 
         <!-- Register Form -->
         <div class="form-container" id="registerForm">
-            <form method="post" action="@Url.Action("Register", "Account")" class="auth-form">
+            <form method="post" 
+            id="registerFormForm" class="auth-form">
                 @Html.AntiForgeryToken()
                 
                 <div class="form-row">
@@ -186,6 +188,6 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/Auth/AuthDesign.js"></script>
-    <script src="~/js/Auth/Index.js"></script>
+    <script src="~/js/Auth/AuthDesign.js" defer></script>
+    <script src="~/js/Auth/Index.js" defer></script>
 }

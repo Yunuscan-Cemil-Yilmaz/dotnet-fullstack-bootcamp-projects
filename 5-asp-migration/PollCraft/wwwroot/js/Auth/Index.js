@@ -1,35 +1,52 @@
-function simulateResponse(form) {
-    const formId = form.attr('id');
-    
-    // Simulate different responses for testing
-    const responses = {
-        success: { success: true, message: 'Operation completed successfully!' },
-        emailExists: { success: false, field: 'Email', message: 'This email is already registered' },
-        usernameExists: { success: false, field: 'Username', message: 'This username is already taken' },
-        invalidCredentials: { success: false, general: true, message: 'Invalid email or password' },
-        serverError: { success: false, general: true, message: 'Server error occurred. Please try again later.' }
-    };
-    
-    // For demo purposes, randomly select a response
-    const responseKeys = Object.keys(responses);
-    const randomResponse = responses[responseKeys[Math.floor(Math.random() * responseKeys.length)]];
-    
-    handleResponse(randomResponse, form);
+function sendRegisterForm() { 
+        const form = $("#registerFormForm");
+
+        if($("#registerPassword").val() !== $("#registerConfirmPassword").val()) {
+            showGeneralError("Passwords do not match");
+            return;
+        }
+
+        const data = {
+            Name: $("#registerName").val(),
+            LastName: $("#registerSurname").val(),
+            Email: $("#registerEmail").val(),
+            UserName: $("#registerUsername").val(),
+            Password: $("#registerPassword").val(),
+        }
+
+        $.ajax({
+            url: "/api/Auth/register",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                handleResponse({ success: true, message: "Registration successful!" }, form);
+            },
+            error: function (xhr) {
+                let response;
+                try {
+                    response = JSON.parse(xhr.responseText);
+                } catch {
+                    response = {
+                        success: false,
+                        general: true,
+                        message: "unexpected error."
+                    };
+                }
+
+                handleResponse(response, form);
+            }
+        });
 }
 
 function handleResponse(response, form) {
     if (response.success) {
-        // Success - redirect or show success message
         showGeneralError('✅ ' + response.message);
-        
-        // Simulate redirect after 2 seconds
+        alert('✅ Register is successful! \n Please login to continue \n you will redirect to login page in 5 sec.');
         setTimeout(() => {
-            // window.location.href = '/Dashboard';
-            console.log('Redirecting to dashboard...');
-        }, 2000);
-        
+            window.location.reload();
+        }, 5000);
     } else {
-        // Error handling
         if (response.general) {
             showGeneralError(response.message);
         } else if (response.field) {
@@ -38,15 +55,6 @@ function handleResponse(response, form) {
     }
 }
 
-function hideFieldError(fieldName) {
-    const errorId = getErrorId(fieldName);
-    const errorElement = $(`#${errorId}`);
-    
-    if (errorElement.length) {
-        errorElement.fadeOut(200);
-        
-        // Remove error class from input wrapper
-        const input = $(`input[name="${fieldName}"]`);
-        input.closest('.input-wrapper').removeClass('error');
-    }
+function sendLoginForm() {
+    alert("test login");
 }
