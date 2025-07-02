@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthTokenRepository, AuthTokenRepository>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -39,15 +40,20 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapWhen(
+    context => context.Request.Path.StartsWithSegments("/api/Auth/register"),
+    subApp => subApp.UseMiddleware<RegisterMiddleware>()
+);
+
+app.MapWhen(
+    context => context.Request.Path.StartsWithSegments("/api/Auth/login"),
+    subpApp => subpApp.UseMiddleware<LoginMiddleware>()
+);
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapWhen(
-    context => context.Request.Path.StartsWithSegments("/Auth/register"),
-    subApp => subApp.UseMiddleware<RegisterMiddleware>()
-);
 
 app.Run();

@@ -56,5 +56,30 @@ function handleResponse(response, form) {
 }
 
 function sendLoginForm() {
-    alert("test login");
+    console.log("sendLoginForm called");
+    const form = $("#loginFormForm");
+
+    const password = $("#loginPassword").val();
+    if (password.length < 6) {
+        showFieldError("loginPassword", "Password must be at least 6 characters long.");
+        return;
+    }
+
+    const data = {
+        Email: $("#loginEmail").val(),
+        Password: password,
+    };
+
+    $.ajax({
+        url: "/api/Auth/login",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (response) {
+            alert("succ");
+        },
+        error: function (xhr) {
+            alert("err");
+        }
+    })
 }

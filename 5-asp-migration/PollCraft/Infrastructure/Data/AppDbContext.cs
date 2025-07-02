@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; } // add table for User model
+    public DbSet<AuthToken> AuthTokens { get; set; }
 
     public override int SaveChanges() // implement SaveChanges to update timestamps
     {
@@ -42,9 +43,14 @@ public class AppDbContext : DbContext
             }
         }
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AuthToken>()
+            .HasOne(a => a.User)
+            .WithOne()
+            .HasForeignKey<AuthToken>(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade); // set up one-to-one relationship with User and AuthToken
     }
 
 }

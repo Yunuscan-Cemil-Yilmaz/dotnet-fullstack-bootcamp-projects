@@ -70,8 +70,9 @@ $(document).ready(function() {
                 btnLoader.hide();
                 
                 // Simulate response (replace with actual response handling)
-                if (formId === "registerFrom") sendRegisterForm();
-                else if (formId === "loginFrom") sendLoginForm();
+                if (formId === "registerFormForm") sendRegisterForm();
+                else if (formId === "loginFormForm") sendLoginForm();
+                console.log(formId)
             }, 100);
         }
     });
