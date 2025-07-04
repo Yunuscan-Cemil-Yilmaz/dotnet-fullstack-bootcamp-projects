@@ -55,6 +55,11 @@ app.UseWhen(
     subApp => subApp.UseMiddleware<ApplicationViewMiddleware>()
 );
 
+app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/api/Auth/logout"),
+    subApp => subApp.UseMiddleware<LogoutMiddleware>()
+);
+
 
 app.UseAuthorization();
 

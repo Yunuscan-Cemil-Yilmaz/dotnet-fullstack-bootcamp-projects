@@ -62,4 +62,8 @@ public class UserService
 
         return loginResponse;
     }
+
+    public async Task LogoutAsync(int userId){
+        await _tokenRepo.DeleteTokenByUserIdAsync(userId);
+    }
 }

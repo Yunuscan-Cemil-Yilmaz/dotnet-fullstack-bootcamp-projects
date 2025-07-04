@@ -27,4 +27,9 @@ public class AuthController : ControllerBase
         var loginResponse = await _userService.LoginAsync(dto);
         return Ok(new { message = "succecss", response = loginResponse });
     } 
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout([FromBody] int userId){
+        await _userService.LogoutAsync(userId);
+        return Ok(new { message = "User registered successfully" });
+    }
 }

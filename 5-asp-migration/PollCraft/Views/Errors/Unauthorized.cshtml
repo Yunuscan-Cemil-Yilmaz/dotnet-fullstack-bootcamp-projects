@@ -3,3 +3,23 @@
     Layout = "_Non_Layout";
 }
 <div>401</div>
+<div class="btn btn-danger" id="goAuthButton">Login Again</div>
+
+<script>
+    document.querySelector("#goAuthButton").addEventListener("click", function() {
+        const userId = JSON.parse(localStorage.getItem("user")).id;
+        $.ajax({
+            url: "/api/Auth/logout",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(userId),
+            success: function(response) { 
+                localStorage.clear();
+                window.location.href = "http://localhost:5182/AuthView/Index";
+            }, 
+            error: function (xhr) { 
+                alert("Somethins went wrong. \nLogout process is faild!");
+            }
+        });
+    });
+</script>

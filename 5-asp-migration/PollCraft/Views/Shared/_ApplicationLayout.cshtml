@@ -42,7 +42,7 @@
                             <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            <li><a class="dropdown-item" id="dropdownLogout" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -168,6 +168,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -193,6 +194,25 @@
                 this.classList.add('active');
             });
         });
+
+        document.querySelector("#dropdownLogout").addEventListener("click", function() {
+            const userId = JSON.parse(localStorage.getItem("user")).id;
+            console.log(userId)
+            $.ajax({
+                url: "/api/Auth/logout",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(userId),
+                success: function(response) { 
+                    localStorage.clear();
+                    window.location.href = "http://localhost:5182/AuthView/Index";
+                }, 
+                error: function (xhr) { 
+                    alert("Somethins went wrong. \nLogout process is faild!")
+                }
+            });
+        });
     </script>
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
