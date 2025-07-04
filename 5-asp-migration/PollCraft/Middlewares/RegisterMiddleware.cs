@@ -23,9 +23,8 @@ public class RegisterMiddleware
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonSerializer.Serialize(new
             {
-                error = ex.Message
+                error = ex.Message,
             }));
-
         }
     }
 }

@@ -27,7 +27,7 @@ public class UserService
     public async Task RegisterAsync(RegisterRequestDto dto)
     {
         if (await _repo.EmailExistsAsync(dto.Email)) throw new Exception("Email already exists");
-
+        
         var user = _mapper.Map<User>(dto);
 
         var hashedPassword = _passwordService.HashPassword(dto.Password);

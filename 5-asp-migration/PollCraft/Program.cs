@@ -40,20 +40,30 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapWhen(
+app.UseWhen(
     context => context.Request.Path.StartsWithSegments("/api/Auth/register"),
     subApp => subApp.UseMiddleware<RegisterMiddleware>()
 );
 
-app.MapWhen(
+app.UseWhen(
     context => context.Request.Path.StartsWithSegments("/api/Auth/login"),
-    subpApp => subpApp.UseMiddleware<LoginMiddleware>()
+    subApp => subApp.UseMiddleware<LoginMiddleware>()
 );
+
+app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/application"),
+    subApp => subApp.UseMiddleware<ApplicationViewMiddleware>()
+);
+
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();

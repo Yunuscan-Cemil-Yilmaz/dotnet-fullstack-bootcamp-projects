@@ -76,10 +76,16 @@ function sendLoginForm() {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (response) {
-            alert("succ");
+            localStorage.clear();
+            localStorage.setItem("user", JSON.stringify(response.response.userResponse));
+            localStorage.setItem("authToken", response.response.token);
+            alert("✅ Successfull Login.\nYou will redirect to app in 2 sec.")
+            setTimeout(() => {
+                window.location.href = `http://localhost:5182/application/News/${response.response.token}/${response.response.userResponse.id}`;
+            }, 2000);
         },
         error: function (xhr) {
-            alert("err");
+            showGeneralError("Your email or password is not valid. Please try again.")
         }
     })
 }
